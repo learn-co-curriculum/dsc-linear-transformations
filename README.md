@@ -204,6 +204,11 @@ logdisp = data_log["logdisp"]
 loghorse = data_log["loghorse"]
 logweight = data_log["logweight"]
 
+scaled_acc = (acc-min(acc))/(max(acc)-min(acc))	
+scaled_disp = (logdisp-np.mean(logdisp))/np.var(logdisp)	
+scaled_horse = (loghorse-np.mean(loghorse))/(max(loghorse)-min(loghorse))	
+scaled_weight= (logweight)/(np.linalg.norm(logweight))
+
 data_cont_scaled = pd.DataFrame([])
 data_cont_scaled["acc"]= scaled_acc
 data_cont_scaled["disp"]= scaled_disp
