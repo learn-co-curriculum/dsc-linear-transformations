@@ -1,5 +1,5 @@
 
-# Feature Scaling and Normalization in Python
+# Feature Scaling and Normalization
 
 ## Introduction
 
