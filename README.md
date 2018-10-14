@@ -173,10 +173,6 @@ Let's have a look at our continuous features: "acceleration", "displacement", "h
 data_pred[["acceleration", "displacement", "horsepower", "weight"]].hist(figsize  = [6, 6]);
 ```
 
-
-![png](index_files/index_15_0.png)
-
-
 We can tell that skewness is an issue for most of our variables (except acceleration), and that some features e.g. weight are much bigger in scale than others!
 
 Let's transform our data in two phases: first, let's try to make our data look more normal, and second, let's perform feature scaling to manage the difference in magnitude!
@@ -195,7 +191,7 @@ data_log.hist(figsize  = [6, 6]);
 ![png](index_files/index_17_0.png)
 
 
-Although we can't say our new variables look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform Min-max scaling (on "acceleration"), standardization on "logdisp", mean normalization (on "loghorse") and unit vector transformation (on "logweight").
+Although we can't say our new variables look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform Min-max scaling (on "acceleration"), standardization on "logdisp", mean normalization (on "loghorse") and another standardization (on "logweight").
 
 
 ```python
@@ -205,9 +201,9 @@ loghorse = data_log["loghorse"]
 logweight = data_log["logweight"]
 
 scaled_acc = (acc-min(acc))/(max(acc)-min(acc))	
-scaled_disp = (logdisp-np.mean(logdisp))/np.var(logdisp)	
-scaled_horse = (loghorse-np.mean(loghorse))/(max(loghorse)-min(loghorse))	
-scaled_weight= (logweight)/(np.linalg.norm(logweight))
+scaled_disp = (logdisp-np.mean(logdisp))/np.sqrt(np.var(logdisp))
+scaled_horse = (loghorse-np.mean(loghorse))/(max(loghorse)-min(loghorse))
+scaled_weight= (logweight-np.mean(logweight))/np.sqrt(np.var(logweight))
 
 data_cont_scaled = pd.DataFrame([])
 data_cont_scaled["acc"]= scaled_acc
