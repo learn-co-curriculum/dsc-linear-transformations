@@ -18,7 +18,7 @@ One important assumption when applying many models or algorithms to data is that
 
 <img src="normality.png" style="width: 500px;"/>
 
-The idea behind this is that, around every point of the regression line, we would assume that the data we would assume the data is spread around the eventual regression line in a "homogenous" way, with more points closer to the regression line and less points further away.
+The idea behind this is that, around every point of the regression line, we would assume the data is spread around the eventual regression line in a "homogenous" way, with more points closer to the regression line and less points further away.
 
 
 ### The variety in feature scales
