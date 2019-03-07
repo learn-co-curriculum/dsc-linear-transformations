@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Previously, we learned about categorical variables, and about how multicollinearity in continuous variables might cause problems in our linear regression model. Before we start with the actual modeling section of multiple linear regression, it is important to talk about feature scaling and why it is important!
+Previously, you've learned about categorical variables, and about how multicollinearity in continuous variables might cause problems in our linear regression model. Before you start with the actual modeling section of multiple linear regression, it is important to talk about feature scaling and why it is important!
 
 ## Objectives
 You will be able to:
@@ -18,14 +18,14 @@ One important assumption when applying many models or algorithms to data is that
 
 <img src="normality.png" style="width: 500px;"/>
 
-The idea behind this is that, around every point of the regression line, we would assume the data is spread around the eventual regression line in a "homogenous" way, with more points closer to the regression line and less points further away.
+The idea behind this is that, around every point of the regression line, you would assume the data is spread around the eventual regression line in a "homogenous" way, with more points closer to the regression line and less points further away.
 
 
 ### The variety in feature scales
 
-Often, your dataset will contain features that largely vary in magnitudes. If we leave these magnitudes unchanged, coefficient sizes will largely fluctuate in magnitude as well. This can give the false impression that some variables are less important than others.
+Often, your dataset will contain features that largely vary in magnitudes. If you leave these magnitudes unchanged, coefficient sizes will largely fluctuate in magnitude as well. This can give the false impression that some variables are less important than others.
 
-Even though this is not always a formal issue when estimating linear regression models, this *can* be an issue in more advanced machine learning models we'll cover later. This is because most machine learning algorithms use Euclidean distance between two data points in their computations. Because of that, making sure that features have similar scales is formally required there. Some algorithms even require features to be **zero centric**.
+Even though this is not always a formal issue when estimating linear regression models, this *can* be an issue in more advanced machine learning models you'll see later. This is because most machine learning algorithms use Euclidean distance between two data points in their computations. Because of that, making sure that features have similar scales is formally required there. Some algorithms even require features to be **zero centric**.
 
 A good rule of thumb is, however, to check your features for normality, and while you're at it, scale your features so they have similar magnitudes, even for a "simple" model like linear regression.
 
@@ -68,7 +68,7 @@ $$x'= \dfrac{x}{{||x||}}$$
 
 Recall that the norm of x $||x||= \sqrt{(x_1^2+x_2^2+...+x_n^2)}$
 
-## Applying what we learned to the auto-mpg data
+## Applying Transformations to the auto-mpg Data
 
 
 ```python
@@ -166,14 +166,14 @@ data_pred.head()
 
 
 
-Let's have a look at our continuous features: "acceleration", "displacement", "horsepower", "weight". Note: we did identify high correlations between some of these in the previous labs, so you would have wanted to remove some of them first. But for now, let's just look at all of them to get a sense of how we can transform each one of them!
+Let's have a look at our continuous features: "acceleration", "displacement", "horsepower", "weight". While you have seen that removing correlated features is often the best course of action, let's first get a sense of how you can transform each one of them!
 
 
 ```python
 data_pred[["acceleration", "displacement", "horsepower", "weight"]].hist(figsize  = [6, 6]);
 ```
 
-We can tell that skewness is an issue for most of our variables (except acceleration), and that some features e.g. weight are much bigger in scale than others!
+You can tell that skewness is an issue for most of our variables (except acceleration), and that some features e.g. weight are much bigger in scale than others!
 
 Let's transform our data in two phases: first, let's try to make our data look more normal, and second, let's perform feature scaling to manage the difference in magnitude!
 
@@ -191,7 +191,7 @@ data_log.hist(figsize  = [6, 6]);
 ![png](index_files/index_17_0.png)
 
 
-Although we can't say our new variables look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform Min-max scaling (on "acceleration"), standardization on "logdisp", mean normalization (on "loghorse") and another standardization (on "logweight").
+Although you can't say our new variables look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform Min-max scaling (on "acceleration"), standardization on "logdisp", mean normalization (on "loghorse") and another standardization (on "logweight").
 
 
 ```python
@@ -222,8 +222,8 @@ Great! You rescaled your features.
 
 ## Additional research
 
-Scikit-Learn provides automatic tools to scale features, see, among others, `MinMaxScaler`, `StandardScaler`
-and `Normalizer`. We highly recommend to have a look at these built-in functions and some code examples here: http://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing!
+scikit-learn provides automatic tools to scale features, see, among others, `MinMaxScaler`, `StandardScaler`
+and `Normalizer`. Have a look at these built-in functions and some code examples here: http://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing!
 
 To learn more about feature scaling in general, you can have a look at this blogpost: https://sebastianraschka.com/Articles/2014_about_feature_scaling.html (up until "bottom-up approaches".
 
