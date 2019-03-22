@@ -12,14 +12,9 @@ You will be able to:
 
 ## Why is feature scaling and normalization important?
 
-### The normality assumption
+### (Approximately) normal features may yield better results
 
-One important assumption when applying many models or algorithms to data is that the input variables used follow a normal distribution. Since you have learned about normal distributions previously, you know how normal distributions are represented as bell curves. A nice representation applied to linear regression can be found below. 
-
-<img src="normality.png" style="width: 500px;"/>
-
-The idea behind this is that, around every point of the regression line, you would assume the data is spread around the eventual regression line in a "homogenous" way, with more points closer to the regression line and less points further away.
-
+In the last lesson you saw how applying a log transform resulted in a model with a better $R^2$ value. The key there was that taking these log transforms resulted in having more "normal" data distributions for the input features!
 
 ### The variety in feature scales
 
@@ -33,7 +28,7 @@ A good rule of thumb is, however, to check your features for normality, and whil
 
 ### Log transformation
 
-Log transformation is a very useful tool when you have data that clearly does not follow a normal distribution. log transformation can help reducing skewness when you have skewed data, and can help reducing variability of data. 
+As seen in the previous lesson, a log transformation is a very useful tool when you have data that clearly does not follow a normal distribution. log transformation can help reducing skewness when you have skewed data, and can help reducing variability of data. 
 
 
 ### Min-max scaling
@@ -188,7 +183,7 @@ data_log.hist(figsize  = [6, 6]);
 ```
 
 
-![png](index_files/index_17_0.png)
+![png](index_files/index_15_0.png)
 
 
 Although you can't say our new variables look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform Min-max scaling (on "acceleration"), standardization on "logdisp", mean normalization (on "loghorse") and another standardization (on "logweight").
@@ -215,7 +210,7 @@ data_cont_scaled.hist(figsize  = [6, 6]);
 ```
 
 
-![png](index_files/index_19_0.png)
+![png](index_files/index_17_0.png)
 
 
 Great! You rescaled your features.
@@ -228,4 +223,4 @@ and `Normalizer`. Have a look at these built-in functions and some code examples
 To learn more about feature scaling in general, you can have a look at this blogpost: https://sebastianraschka.com/Articles/2014_about_feature_scaling.html (up until "bottom-up approaches".
 
 ## Summary
-In this lecture, you learned about why feature scaling is important, and *how* to transform your features
+In this lecture, you learned about why feature scaling is important, and *how* to transform your features.
