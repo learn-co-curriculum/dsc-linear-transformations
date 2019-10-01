@@ -3,12 +3,12 @@
 
 ## Introduction
 
-Previously, you've learned about categorical variables, and about how multicollinearity in continuous variables might cause problems in our linear regression model. Before you start with the actual modeling section of multiple linear regression, it is important to talk about feature scaling and why it is important!
+Previously, you learned about categorical variables, and about how multicollinearity in continuous variables might cause problems in our linear regression model. Before you start with the actual modeling section of multiple linear regression, it is important to talk about feature scaling and why it is important!
 
 ## Objectives
 You will be able to:
 * Understand the use cases for feature scaling and normalization 
-* Understand min-max scaling, mean-normalization, log normalization and unit vectors
+* Understand min-max scaling, mean-normalization, log normalization, and unit vectors
 
 ## Why is feature scaling and normalization important?
 
@@ -28,7 +28,7 @@ A good rule of thumb is, however, to check your features for normality, and whil
 
 ### Log transformation
 
-As seen in the previous lesson, a log transformation is a very useful tool when you have data that clearly does not follow a normal distribution. log transformation can help reducing skewness when you have skewed data, and can help reducing variability of data. 
+As seen in the previous lesson, a log transformation is a very useful tool when you have data that clearly does not follow a normal distribution. Log transformation can help reduce skewness when you have skewed data, and can help reducing variability of data. 
 
 
 ### Min-max scaling
@@ -37,7 +37,7 @@ When performing min-max scaling, you can transform x to get the transformed $x'$
 
 $$x' = \dfrac{x - \min(x)}{\max(x)-\min(x)}$$
 
-This way of scaling brings values between 0 and 1
+This way of scaling brings all values between 0 and 1. 
 
 ### Standardization
 
@@ -67,10 +67,12 @@ Recall that the norm of x $||x||= \sqrt{(x_1^2+x_2^2+...+x_n^2)}$
 
 
 ```python
+import matplotlib.pyplot as plt
+%matplotlib inline
 import pandas as pd
-data = pd.read_csv("auto-mpg.csv")
+data = pd.read_csv('auto-mpg.csv')
 data['horsepower'].astype(str).astype(int) # don't worry about this for now
-data_pred= data.iloc[:,1:8]
+data_pred = data.iloc[:,1:8]
 data_pred.head()
 ```
 
@@ -161,14 +163,18 @@ data_pred.head()
 
 
 
-Let's have a look at our continuous features: "acceleration", "displacement", "horsepower", "weight". While you have seen that removing correlated features is often the best course of action, let's first get a sense of how you can transform each one of them!
+Let's have a look at our continuous features: `'acceleration'`, `'displacement'`, `'horsepower'`, and `'weight'`. While you have seen that removing correlated features is often the best course of action, let's first get a sense of how you can transform each one of them!
 
 
 ```python
-data_pred[["acceleration", "displacement", "horsepower", "weight"]].hist(figsize  = [6, 6]);
+data_pred[['acceleration', 'displacement', 'horsepower', 'weight']].hist(figsize  = [6, 6]); 
 ```
 
-You can tell that skewness is an issue for most of our variables (except acceleration), and that some features e.g. weight are much bigger in scale than others!
+
+![png](index_files/index_13_0.png)
+
+
+You can tell that skewness is an issue for most of our variables (except `'acceleration'`), and that some features e.g. `'weight'` are much bigger in magnitude than others!
 
 Let's transform our data in two phases: first, let's try to make our data look more normal, and second, let's perform feature scaling to manage the difference in magnitude!
 
@@ -176,9 +182,9 @@ Let's transform our data in two phases: first, let's try to make our data look m
 ```python
 import numpy as np
 data_log = pd.DataFrame([])
-data_log["logdisp"] = np.log(data_pred["displacement"])
-data_log["loghorse"] = np.log(data_pred["horsepower"])
-data_log["logweight"] = np.log(data_pred["weight"])
+data_log['logdisp'] = np.log(data_pred['displacement'])
+data_log['loghorse'] = np.log(data_pred['horsepower'])
+data_log['logweight'] = np.log(data_pred['weight'])
 data_log.hist(figsize  = [6, 6]);
 ```
 
@@ -186,27 +192,27 @@ data_log.hist(figsize  = [6, 6]);
 ![png](index_files/index_15_0.png)
 
 
-Although you can't say our new variables look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform Min-max scaling (on "acceleration"), standardization on "logdisp", mean normalization (on "loghorse") and another standardization (on "logweight").
+Although our new variables don't look perfectly normal, there is clearly an improvement in terms of skewness. Now, let's perform min-max scaling (on `'acceleration'`), standardization (on `'logdisp'` and `'logweight'`), and mean normalization (on `'loghorse'`). 
 
 
 ```python
-acc = data_pred["acceleration"]
-logdisp = data_log["logdisp"]
-loghorse = data_log["loghorse"]
-logweight = data_log["logweight"]
+acc = data_pred['acceleration']
+logdisp = data_log['logdisp']
+loghorse = data_log['loghorse']
+logweight = data_log['logweight']
 
-scaled_acc = (acc-min(acc))/(max(acc)-min(acc))	
-scaled_disp = (logdisp-np.mean(logdisp))/np.sqrt(np.var(logdisp))
-scaled_horse = (loghorse-np.mean(loghorse))/(max(loghorse)-min(loghorse))
-scaled_weight= (logweight-np.mean(logweight))/np.sqrt(np.var(logweight))
+scaled_acc = (acc - min(acc)) / (max(acc) - min(acc))
+scaled_disp = (logdisp - np.mean(logdisp)) / np.sqrt(np.var(logdisp))
+scaled_weight = (logweight - np.mean(logweight)) / np.sqrt(np.var(logweight))
+scaled_horse = (loghorse - np.mean(loghorse)) / (max(loghorse) - min(loghorse))
 
 data_cont_scaled = pd.DataFrame([])
-data_cont_scaled["acc"]= scaled_acc
-data_cont_scaled["disp"]= scaled_disp
-data_cont_scaled["horse"] = scaled_horse
-data_cont_scaled["weight"] = scaled_weight
+data_cont_scaled['acc'] = scaled_acc
+data_cont_scaled['disp'] = scaled_disp
+data_cont_scaled['horse'] = scaled_horse
+data_cont_scaled['weight'] = scaled_weight
 
-data_cont_scaled.hist(figsize  = [6, 6]);
+data_cont_scaled.hist(figsize = [6, 6]);
 ```
 
 
@@ -217,10 +223,10 @@ Great! You rescaled your features.
 
 ## Additional research
 
-scikit-learn provides automatic tools to scale features, see, among others, `MinMaxScaler`, `StandardScaler`
+scikit-learn provides automatic tools to scale features, see, among others, `MinMaxScaler`, `StandardScaler`, 
 and `Normalizer`. Have a look at these built-in functions and some code examples here: http://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing!
 
-To learn more about feature scaling in general, you can have a look at this blogpost: https://sebastianraschka.com/Articles/2014_about_feature_scaling.html (up until "bottom-up approaches".
+To learn more about feature scaling in general, you can have a look at this blogpost: https://sebastianraschka.com/Articles/2014_about_feature_scaling.html (up until "bottom-up approaches").
 
 ## Summary
-In this lecture, you learned about why feature scaling is important, and *how* to transform your features.
+In this lesson, you learned about why feature scaling is important, and *how* to transform your features.
