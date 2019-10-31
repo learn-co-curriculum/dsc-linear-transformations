@@ -7,18 +7,19 @@ Previously, you learned about categorical variables, and about how multicollinea
 
 ## Objectives
 You will be able to:
-* Understand the use cases for feature scaling and normalization 
-* Understand min-max scaling, mean-normalization, log normalization, and unit vectors
+* Determine if it is necessary to perform normalization/standardization for a specific model or set of data
+* Compare the different standardization and normalization techniques
+* Use standardization/normalization on features of a dataset
 
 ## Why is feature scaling and normalization important?
 
 ### (Approximately) normal features may yield better results
 
-In the last lesson you saw how applying a log transform resulted in a model with a better $R^2$ value. The key there was that taking these log transforms resulted in having more "normal" data distributions for the input features!
+In the last lesson you saw how applying a log transform resulted in a model with a better $R^2$ value. The key there was that applying log transforms resulted in having more "normal" data distributions for the input features!
 
 ### The variety in feature scales
 
-Often, your dataset will contain features that largely vary in magnitudes. If you leave these magnitudes unchanged, coefficient sizes will largely fluctuate in magnitude as well. This can give the false impression that some variables are less important than others.
+Often, your dataset will contain features that vary largely in magnitudes. If you leave these magnitudes unchanged, coefficient sizes will fluctuate largely in magnitude as well. This can give the false impression that some variables are less important than others.
 
 Even though this is not always a formal issue when estimating linear regression models, this *can* be an issue in more advanced machine learning models you'll see later. This is because most machine learning algorithms use Euclidean distance between two data points in their computations. Because of that, making sure that features have similar scales is formally required there. Some algorithms even require features to be **zero centric**.
 
@@ -223,10 +224,10 @@ Great! You rescaled your features.
 
 ## Additional research
 
-scikit-learn provides automatic tools to scale features, see, among others, `MinMaxScaler`, `StandardScaler`, 
+Scikit-learn provides automatic tools to scale features, see, among others, `MinMaxScaler`, `StandardScaler`, 
 and `Normalizer`. Have a look at these built-in functions and some code examples here: http://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing!
 
 To learn more about feature scaling in general, you can have a look at this blogpost: https://sebastianraschka.com/Articles/2014_about_feature_scaling.html (up until "bottom-up approaches").
 
 ## Summary
-In this lesson, you learned about why feature scaling is important, and *how* to transform your features.
+In this lesson, you learned about why feature scaling is important, and *how* to use it to transform your features.
