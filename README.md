@@ -17,7 +17,7 @@ You will be able to:
 
 Linear transformations don't impact the overall model performance metrics of an ordinary least-squares linear regression. So why apply them?
 
-The main reason to apply a linear transformation is so that the modeling results are **more useful or interpretable to a stakeholder**. There are also some machine learning models that assume that variables have been transformed to have the same scale, although this is not not applicable to the regression models we are currently using.
+The main reason to apply a linear transformation is so that the modeling results are **more useful or interpretable to a stakeholder**. There are also some machine learning models that assume that variables have been transformed to have the same scale, although this is not applicable to the regression models we are currently using.
 
 For each common type of linear transformation we'll walk through a reason why it might be useful, how to apply it, and how to interpret the resulting coefficients.
 
