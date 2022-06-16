@@ -468,16 +468,16 @@ initial_results.params["weight"] / 0.453592
 
 ### Scaling the Target
 
-But you'll notice that even though we adjusted the units of `weight`, the target units are still in miles per gallon, which uses imperial units. The conventional metric units for fuel economy are liters per 100 kilometers, not miles per gallon. For this to make sense to our stakeholders we need to make sure that all of the units are metric, not imperial.
+But you'll notice that even though we adjusted the units of `weight`, the target units are still in miles per gallon, which uses imperial units. The conventional metric units for fuel economy are kilometers per liter, not miles per gallon. For this to make sense to our stakeholders we need to make sure that all of the units are metric, not imperial.
 
 So let's transform the units of `y` as well:
 
 
 ```python
-# 1 mpg = 235.2 l/100km
-y_metric = data["mpg"] * 235.214583
+# 1 mpg = 0.425 km/L
+y_metric = data["mpg"] * 0.425144
 # "mpg" is no longer an accurate name, so rename
-y_metric.name = "l/100km"
+y_metric.name = "km/L"
 
 y_metric
 ```
@@ -485,18 +485,18 @@ y_metric
 
 
 
-    0       4233.862494
-    1       3528.218745
-    2       4233.862494
-    3       3763.433328
-    4       3998.647911
-               ...     
-    387     6350.793741
-    388    10349.441652
-    389     7526.866656
-    390     6586.008324
-    391     7291.652073
-    Name: l/100km, Length: 392, dtype: float64
+    0       7.652592
+    1       6.377160
+    2       7.652592
+    3       6.802304
+    4       7.227448
+             ...    
+    387    11.478888
+    388    18.706336
+    389    13.604608
+    390    11.904032
+    391    13.179464
+    Name: km/L, Length: 392, dtype: float64
 
 
 
@@ -529,7 +529,7 @@ Metric model adjusted R-Squared:       {metric_results.rsquared_adj}
     
     Initial model adjusted R-Squared:      0.8069069309563753
     Weight in kg model adjusted R-Squared: 0.8069069309563753
-    Metric model adjusted R-Squared:       0.8069069309563752
+    Metric model adjusted R-Squared:       0.8069069309563753
     
 
 
@@ -557,10 +557,10 @@ metric_results.params
 
 
 
-    const        -3271.271731
-    cylinders      -35.688876
-    weight          -3.300995
-    model year     176.886082
+    const        -5.912735
+    cylinders    -0.064507
+    weight       -0.005966
+    model year    0.319717
     dtype: float64
 
 
@@ -573,7 +573,7 @@ Interpreting the `weight` coefficient specifically, the second model was saying:
 
 Whereas the model with a transformed target was saying:
 
-> For each increase of 1 kg in weight, we see an associated decrease of about 3.3 in l/100 km
+> For each increase of 1 kg in weight, we see an associated decrease of about 0.006 in km/L
 
 Again, this is the same information, except now both the predictor and the target are expressed in metric units.
 
@@ -587,7 +587,7 @@ metric_results.params["weight"]
 
 
 
-    -3.3009949094047317
+    -0.00596645905991282
 
 
 
@@ -595,13 +595,13 @@ metric_results.params["weight"]
 ```python
 # For target transformations, don't invert
 # --> We multiplied the target, so multiply the coefficient
-kg_results.params["weight"] * 235.214583
+kg_results.params["weight"] * 0.425144
 ```
 
 
 
 
-    -3.3009949094047335
+    -0.00596645905991282
 
 
 
@@ -610,13 +610,13 @@ kg_results.params["weight"] * 235.214583
 # To go from the original values, both divide and multiply
 # --> We multiplied the predictor, so divide the coefficient
 # --> We multiplied the target, so multiply the coefficient
-initial_results.params["weight"] / 0.453592 * 235.214583
+initial_results.params["weight"] / 0.453592 * 0.425144
 ```
 
 
 
 
-    -3.300994909404811
+    -0.005966459059912961
 
 
 
