@@ -366,7 +366,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 fig, ax = plt.subplots()
-sns.histplot(data=X_initial, x="weight", label="Imperial", ax=ax)
+sns.histplot(data=X_initial, x="weight", label="Imperial", ax=ax, color="blue")
 sns.histplot(data=X_metric, x="weight", label="Metric", color="orange", ax=ax)
 ax.legend();
 ```
